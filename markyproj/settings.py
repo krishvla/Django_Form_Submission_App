@@ -81,13 +81,13 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'markytics',
+        'NAME': 'db_name',
 
-        'USER': 'postgres',
+        'USER': 'user_name',
 
-        'PASSWORD': '8121',
+        'PASSWORD': 'password',
 
-        'HOST': 'localhost',
+        'HOST': 'host', #eg. localhost
 
         'PORT': '5432',
 
