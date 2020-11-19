@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+{% load static %}
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/images/favicon.png' %}">
+    <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
+    <!-- Custom CSS -->
+    <link href="{% static 'assets/extra-libs/c3/c3.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/libs/chartist/dist/chartist.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link href="{% static 'dist/css/style.min.css' %}" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<style>
+    
+  
+  .toast{
+    border-radius: 5px !important;
+    margin-right: 20px;
+  }
+  .toast-body{
+    max-width: 350px;
+  }
+  #messages {
+    z-index: 9999 !important;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
+  #toast_head{
+    text-align: center !important;
+  }
+  #edit_modal_title{
+    margin-left: 30%;
+  }
+  .toast .toast-header.alert_success{
+    background-color: seagreen;
+  }
+  .toast .toast-header.alert_info{
+    background-color: rgba(0, 119, 255, 0.877) !important;
+  }
+  .toast .toast-header.alert_error{
+    background-color: tomato;
+  }
+</style>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" data-navbarbg="skin6">
+            <nav class="navbar top-navbar navbar-expand-md">
+                <div class="navbar-header" data-logobg="skin6">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                            class="ti-menu ti-close"></i></a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-brand">
+                        <!-- Logo icon -->
+                        <a href="index.html">
+                            <b class="logo-icon">
+                                <!-- Dark Logo icon -->
+                                <img src="{% static 'assets/images/logo-icon.png' %}" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo icon -->
+                                <img src="{% static 'assets/images/logo-icon.png' %}" alt="homepage" class="light-logo" />
+                            </b>
+                            <!--End Logo icon -->
+                            <!-- Logo text -->
+                            <span class="logo-text">
+                                <!-- dark Logo text -->
+                                <img src="{% static 'assets/images/logo-text.png' %}" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo text -->
+                                <img src="{% static 'assets/images/logo-light-text.png' %}" class="light-logo" alt="homepage" />
+                            </span>
+                        </a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                            class="ti-more"></i></a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-right">
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <img src="{% static 'assets/images/users/profile-pic.jpg' %}" alt="user" class="rounded-circle"
+                                        width="40">
+                                    <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
+                                            class="text-dark">{{request.user}}</span> <i data-feather="chevron-down"
+                                            class="svg-icon"></i></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/logout/"><i data-feather="power"
+                                            class="svg-icon mr-2 ml-1"></i>
+                                        Logout</a>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <span class="ml-2 d-none d-lg-inline-block"><span>Hello</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        {% if request.user.is_authenticated %}
+                            <li class="list-divider"></li>
+                            <li class="nav-small-cap"><span class="hide-menu">Dashboard</span></li>
+                            <li {% if dashboard %} class="sidebar-item selected" {% else %} class="sidebar-item" {% endif %}> 
+                                <a class="sidebar-link sidebar-link" href="/dashboard/" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text feather-icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                    <span
+                                        class="hide-menu">Master Incident
+                                    </span>
+                                </a>
+                            </li>
+                            <li {% if incidents %} class="sidebar-item selected" {% else %} class="sidebar-item" {% endif %}> 
+                                <a class="sidebar-link sidebar-link" href="/incidents/" aria-expanded="false">
+                                    <img src="{% static 'my_icons/checked_form.svg' %}" width="20" alt="" srcset="">
+                                    <span
+                                        class="hide-menu"> &nbsp; Submitted Incidents
+                                    </span>
+                                </a>
+                            </li>    
+                            <li class="list-divider"></li>
+                            <li class="nav-small-cap"><span class="hide-menu">Authentication</span></li>
+                            <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/logout/"
+                                    aria-expanded="false"><i data-feather="lock" class="feather-icon"></i><span
+                                        class="hide-menu">LogOut
+                                    </span></a>
+                            </li>
+                        {% else %}
+                            <li class="list-divider"></li>
+                            <li class="nav-small-cap"><span class="hide-menu">Authentication</span></li>
+                            <li {% if login %} class="sidebar-item selected" {% else %} class="sidebar-item" {% endif %}> <a class="sidebar-link sidebar-link" href="/"
+                                    aria-expanded="false"><i data-feather="lock" class="feather-icon"></i><span
+                                        class="hide-menu">Login
+                                    </span></a>
+                            </li>
+                            <li {% if register %} class="sidebar-item selected" {% else %} class="sidebar-item" {% endif %}> <a class="sidebar-link sidebar-link"
+                                    href="register/" aria-expanded="false"><i data-feather="lock"
+                                        class="feather-icon"></i><span class="hide-menu">Register
+                                    </span></a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- <div class="page-breadcrumb">
+                <p>Hi Appu</p>
+            </div> -->
+            <div class="container">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    {% if messages %}
+      <div id="messages">
+        <div aria-live="polite" aria-atomic="true" style="position: relative;">
+          <div style="position: absolute; top: 0; right: 0;">
+            {% for message in messages %}
+              <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                {% if message.tags == 'success' %}
+                  <div class="toast-header alert_success" >
+                {% elif message.tags == 'info' %}
+                  <div class="toast-header alert_info" >
+                {% else %}
+                  <div class="toast-header alert_error" >
+                {% endif %}
+                  <strong class="mr-auto">Message</strong>
+                  <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">&times;</span>
+                  </button>
+                </div>
+                <div class="toast-body">
+                  <p><b>{{ message.tags|title }}: </b>{{ message }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div> 
+      </div>
+    {% endif %}
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/libs/popper.js/dist/umd/popper.min.js' %}"></script>
+    <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script src="{% static 'dist/js/app-style-switcher.js' %}"></script>
+    <script src="{% static 'dist/js/feather.min.js' %}"></script>
+    <script src="{% static 'assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js' %}"></script>
+    <script src="{% static 'dist/js/sidebarmenu.js' %}"></script>
+    <!--Custom JavaScript -->
+    <script src="{% static 'dist/js/custom.min.js' %}"></script>
+    <!--This page JavaScript -->
+    <script src="{% static 'assets/extra-libs/c3/d3.min.js' %}"></script>
+    <script src="{% static 'assets/extra-libs/c3/c3.min.js' %}"></script>
+    <script src="{% static 'assets/libs/chartist/dist/chartist.min.js' %}"></script>
+    <script src="{% static 'assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js' %}"></script>
+    <script src="{% static 'assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js' %}"></script>
+    <script src="{% static 'assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js' %}"></script>
+    <script src="{% static 'dist/js/pages/dashboards/dashboard1.min.js' %}"></script>
+    <script>
+        function load_messages() {
+            $('.toast').toast({
+                delay: 4000,
+            })
+            $('.toast').toast('show');
+        }
+        
+        window.onload = load_messages();
+            
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" style="text-align: center;">New Master Incident</h4><br>
+                <form class="mt-4" method="POST">
+                    {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="location" class="col-sm-3 col-form-label">Location <sup>*</sup></label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="location" name="location" required>
+                                    <option value="corporate head office" selected>Corporate Head Office</option>
+                                    <option value="associate office">Associate Office</option>
+                                    <option value="main office">Main Office</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="incident_description" class="col-sm-3 col-form-label">Incident Description <sup>*</sup></label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="incident_description" id="incident_description" rows="3" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="incident_date_time" class="col-sm-3 col-form-label">Date and Time of Incident <sup>*</sup></label>
+                            <div class="col-sm-4">
+                                <input type="date" name="incident_date" id="incident_date_time" class="form-control" required>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="time" name="incident_time" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="incident_location" class="col-sm-3 col-form-label">Incident Location <sup>*</sup></label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="incident_location" id="incident_location" rows="3" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="initial_severity" class="col-sm-3 col-form-label">Initial Severity <sup>*</sup></label>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="initial_severity" name="initial_severity" required>
+                                    <option value="high">High</option>
+                                    <option value="moderate" selected>Moderate</option>
+                                    <option value="low">Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="suspected_cause" class="col-sm-3 col-form-label">Suspected Cause <sup>*</sup></label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="suspected_cause" id="suspected_cause" rows="3" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="actions_taken" class="col-sm-3 col-form-label">Immediate Actions Taken <sup>*</sup></label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="actions_taken" id="actions_taken" rows="3" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="sub_incident_types" class="col-sm-3 col-form-label">Sub Incident Types <sup>*</sup></label>
+                            <div class="col-sm-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="sub_incident_types" value="Environmental Incident" id="check1">
+                                    <label class="form-check-label" for="check1">
+                                      Environmental Incident
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="sub_incident_types" value="Injury/Illness" id="check2">
+                                    <label class="form-check-label" for="check2">
+                                      Injury/Illness
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="sub_incident_types" value="Property Damage" id="check3">
+                                    <label class="form-check-label" for="check3">
+                                        Property Damage 
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="sub_incident_types" value="Vehicle" id="check4">
+                                    <label class="form-check-label" for="check4">
+                                        Vehicle
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="username" class="col-sm-3 col-form-label">Reported By <sup>*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="text" readonly class="form-control-plaintext" name="username" id="username" value="{{request.user.username}}">
+                              </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-5"></div>
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
